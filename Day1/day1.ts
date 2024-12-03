@@ -22,6 +22,13 @@ function readCsvToArray(filePath: string): IntPair[] {
     return pairs;
 }
 
+function calculateSimilarityScore(intPairs:IntPair[]) {
+    let firstList:number[] = intPairs.map(x=>x[0]);
+    let secondList: number[] = intPairs.map(x=>x[1]);
+    let similarityCountPair = firstList.map(x=>{return [x, secondList.reduce((a,b)=>{return b==x?a++:a})]});
+    console.log("Similarity Score:" +(similarityCountPair.map((item)=> {return item[0]*item[1]})).reduce((a,b)=>{return a+b;}));
+}
+
 function calculateDistance(intPairs:IntPair[]) {
     let firstList:number[] = intPairs.map(x=>x[0]).sort();
     let secondList: number[] = intPairs.map(x=>x[1]).sort();
@@ -37,6 +44,7 @@ function main() {
     try {
            intPairs = readCsvToArray('input.csv');
            calculateDistance(intPairs);
+           calculateSimilarityScore(intPairs);
         } catch (error) {
             console.error('Error reading CSV file:', error.message);
         }
