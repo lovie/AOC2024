@@ -19,7 +19,7 @@ function readCsvToArray(filePath) {
 function calculateSimilarityScore(intPairs) {
     var firstList = intPairs.map(function (x) { return x[0]; });
     var secondList = intPairs.map(function (x) { return x[1]; });
-    var similarityCountPair = firstList.map(function (x) { return [x, secondList.reduce(function (a, b) { return b == x ? a++ : a; })]; });
+    var similarityCountPair = firstList.map(function (x) { return [x, secondList.reduce(function (a, b) { return b == x ? a + 1 : a; }, 0)]; });
     console.log("Similarity Score:" + (similarityCountPair.map(function (item) { return item[0] * item[1]; })).reduce(function (a, b) { return a + b; }));
 }
 function calculateDistance(intPairs) {
